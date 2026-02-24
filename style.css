@@ -1,0 +1,302 @@
+/* Общие настройки */
+:root {
+    --primary: #ff477e;
+    --secondary: #ff85a2;
+    --accent: #ff0a54;
+    --gold: #d4af37;
+    --text-color: #4a148c;
+    --glass: rgba(255, 255, 255, 0.7);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Чтобы не было прокрутки во время анимаций */
+    background: radial-gradient(circle at top right, #fff5f7, #fce4ec);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Фон с канвасом (лепестками) */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* --- СЕКЦИЯ 1: ИНТРО (ПОДАРОК) --- */
+#intro-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #ffffff, #ffebee);
+    transition: all 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.gift-wrapper {
+    text-align: center;
+    position: relative;
+}
+
+.gift-box {
+    font-size: 100px;
+    cursor: pointer;
+    z-index: 2;
+    position: relative;
+    animation: giftBounce 2s infinite ease-in-out;
+    filter: drop-shadow(0 15px 25px rgba(255, 71, 126, 0.3));
+}
+
+.gift-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: var(--primary);
+    filter: blur(50px);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: glowPulse 2s infinite alternate;
+}
+
+.instruction {
+    margin-top: 30px;
+    color: var(--primary);
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+/* --- СЕКЦИЯ 2: КАРТОЧКА --- */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    z-index: 10;
+    position: relative;
+    perspective: 1200px; /* Глубина для 3D */
+}
+
+#main-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 45px;
+    padding: 50px 40px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 40px 100px rgba(255, 71, 126, 0.15);
+    
+    /* Начальное положение для появления */
+    opacity: 0;
+    transform: rotateX(15deg) translateY(150px) scale(0.8);
+    transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Состояния после открытия */
+body.opened #intro-screen {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
+}
+
+body.opened #main-card {
+    opacity: 1;
+    transform: rotateX(0deg) translateY(0) scale(1);
+}
+
+/* Текстовые стили */
+.event-type {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h1 {
+    color: var(--text-color);
+    font-size: 2.4rem;
+    margin: 20px 0 10px;
+    font-weight: 900;
+}
+
+.divider {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.greeting-text {
+    color: #5d4037;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+}
+
+/* Блок деталей */
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 15px 20px;
+    border-radius: 20px;
+    text-align: left;
+    transition: 0.3s;
+}
+
+.detail-item:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: translateX(5px);
+}
+
+.detail-item .icon {
+    font-size: 24px;
+}
+
+.text-group small {
+    display: block;
+    color: var(--primary);
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.text-group strong {
+    color: var(--text-color);
+    font-size: 1.05rem;
+}
+
+/* Кнопка "Я приду" */
+.btn-rsvp {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(45deg, var(--accent), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.4s;
+    box-shadow: 0 15px 35px rgba(255, 10, 84, 0.3);
+}
+
+.btn-rsvp:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(255, 10, 84, 0.5);
+}
+
+.flare {
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transition: 0.7s;
+}
+
+.btn-rsvp:hover .flare {
+    left: 150%;
+}
+
+.footer-note {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #888;
+    font-style: italic;
+}
+
+/* АНИМАЦИИ */
+@keyframes giftBounce {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.1) translateY(-20px); }
+}
+
+@keyframes glowPulse {
+    from { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+    to { opacity: 0.6; transform: translate(-50%, -50%) scale(1.4); }
+}
+/* ... (весь твой предыдущий CSS остается) ... */
+
+/* --- ОПТИМИЗАЦИЯ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА --- */
+@media (max-width: 480px) {
+    #main-card {
+        padding: 30px 20px; /* Уменьшаем внутренние отступы */
+        max-width: 95%;     /* Карточка занимает почти всю ширину */
+        border-radius: 30px; /* Чуть менее скругленные углы для компактности */
+    }
+
+    h1 {
+        font-size: 1.8rem;  /* Уменьшаем заголовок, чтобы не переносился криво */
+    }
+
+    .gift-box {
+        font-size: 80px;    /* Подарок чуть меньше, чтобы влез текст снизу */
+    }
+
+    .event-details {
+        gap: 10px;          /* Теснее прижимаем иконки к тексту */
+    }
+
+    .detail-item {
+        padding: 12px 15px; /* Компактные блоки локации и времени */
+    }
+
+    .detail-item .icon {
+        font-size: 20px;    /* Иконки чуть меньше */
+    }
+
+    .greeting-text {
+        font-size: 0.95rem; /* Читабельный, но не огромный текст */
+        margin-bottom: 20px;
+    }
+
+    .btn-rsvp {
+        padding: 16px;      /* Удобная кнопка под большой палец */
+        font-size: 1.1rem;
+    }
+}
+
+/* Фикс для очень маленьких экранов (типа iPhone SE) */
+@media (max-height: 600px) {
+    .gift-box { font-size: 60px; }
+    h1 { font-size: 1.5rem; }
+    .card-body { margin-top: 10px; }
+}
