@@ -54,7 +54,7 @@ btnConfirm.addEventListener('click', (e) => {
     }());
 
     // 2. Меняем стиль кнопки и карточки на Ифтар-стайл
-    btnConfirm.innerHTML = "8 Наурызда күтеміз! 🌷";
+    btnConfirm.innerHTML = "7 Наурызда күтеміз! 🌷";
     
     btnConfirm.style.background = "linear-gradient(45deg, #D4AF37, #FFD700)"; 
     btnConfirm.style.transform = "scale(0.95)";
@@ -133,5 +133,6 @@ function animate() {
 }
 
 animate();
+
 
 
